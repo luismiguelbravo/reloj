@@ -5,11 +5,20 @@
 
 <style>
     body { font-size: 40px; }
+    @font-face 
+    {
+      font-family: roboto;
+      src: url('Font/Roboto/Roboto-Light.ttf') format('truetype');
+    }
+    .fuente_reloj
+    {
+      font-family: roboto;
+    }
 </style>
 <body>
     <div ng-app="myApp">
       <div ng-controller='TimeCtrl'>
-        <p>{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
+        <p class="fuente_reloj">{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
       </div>
     </div>
 </div>
