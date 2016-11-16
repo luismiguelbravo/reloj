@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<script src="angular.min.js"></script>
+
+<style>
+    body { font-size: 40px; }
+</style>
+<body>
+    <div ng-app="myApp">
+      <div ng-controller='TimeCtrl'>
+        <p>{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
+      </div>
+    </div>
+</div>
+
+<script>
+var module = angular.module('myApp', []);
+
+module.controller('TimeCtrl', function($scope, $interval) {
+  var tick = function() {
+    $scope.clock = Date.now();
+  }
+  tick();
+  $interval(tick, 1000);
+});
+</script>
+<script src="dias.js"></script>
+</body>
+</html>
