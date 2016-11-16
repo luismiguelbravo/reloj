@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<script src="angular.min.js"></script>
+<head>
+  <title>Reloj</title>
+  <link rel="icon" type="image/png" href="Image/favicon.png">
+  <script src="angular.min.js"></script>
+  <style>
+      body { font-size: 40px; }
+      @font-face 
+      {
+        font-family: roboto;
+        src: url('Font/Roboto/Roboto-Light.ttf') format('truetype');
+      }
+      .fuente_reloj
+      {
+        font-family: roboto;
+        font-size: 72px;
+      }
+  </style>
+</head>
 
-<style>
-    body { font-size: 40px; }
-    @font-face 
-    {
-      font-family: roboto;
-      src: url('Font/Roboto/Roboto-Light.ttf') format('truetype');
-    }
-    .fuente_reloj
-    {
-      font-family: roboto;
-    }
-</style>
 <body>
     <div ng-app="myApp">
       <div ng-controller='TimeCtrl'>
@@ -25,7 +30,6 @@
 
 <script>
 var module = angular.module('myApp', []);
-
 module.controller('TimeCtrl', function($scope, $interval) {
   var tick = function() {
     $scope.clock = Date.now();
