@@ -6,13 +6,11 @@
   <link rel="icon" type="image/png" href="Image/favicon.png">
   <script src="angular.min.js"></script>
   <style>
-      
       @font-face 
       {
         font-family: roboto;
         src: url('Font/Roboto/Roboto-Light.ttf') format('truetype');
       }
-      body { /*font-size: 40px;*/ font-family: roboto;}
       .fuente_reloj
       {
         font-family: roboto;
@@ -22,6 +20,10 @@
       {
         background-color: #1A0B3B;
         color: #979E3D;
+      }
+      .pasado
+      {
+        background-color: #CCC;
       }
   </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -79,7 +81,7 @@ module.controller('TimeCtrl', function($scope, $interval) {
 
   $scope.fechas = [
   {
-    descripcion : 'Llegada a chile',
+    descripcion : 'Llegada a Santiago de Chile',
     dia : new Date("10/19/2016")
   },
   {
@@ -136,7 +138,18 @@ module.controller('TimeCtrl', function($scope, $interval) {
     var dif = midia.getTime() - _hoyDia.getTime();
     var Seconds_from_T1_to_T2 = dif / 1000;
     return Seconds_from_T1_to_T2;
-  }
+  };
+
+  $scope.EsPasado = function(){
+    var _hoyDia = new Date(Date.now());
+    var dif = midia.getTime() - _hoyDia.getTime();
+    if (dif < 0 )
+    {
+      return "pasado";
+    }
+    return "";
+  };
+
 
 
 });
