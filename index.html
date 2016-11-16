@@ -6,16 +6,22 @@
   <link rel="icon" type="image/png" href="Image/favicon.png">
   <script src="angular.min.js"></script>
   <style>
-      body { font-size: 40px; }
+      
       @font-face 
       {
         font-family: roboto;
         src: url('Font/Roboto/Roboto-Light.ttf') format('truetype');
       }
+      body { font-size: 40px; font-family: roboto;}
       .fuente_reloj
       {
         font-family: roboto;
         font-size: 72px;
+      }
+      .presente
+      {
+        background-color: #1A0B3B;
+        color: #979E3D;
       }
   </style>
 </head>
@@ -23,7 +29,7 @@
 <body>
     <div ng-app="myApp">
       <div ng-controller='TimeCtrl'>
-        <p class="fuente_reloj">{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
+        <div class="fuente_reloj presente">{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
       </div>
     </div>
 </div>
@@ -31,6 +37,13 @@
 <script>
 var module = angular.module('myApp', []);
 module.controller('TimeCtrl', function($scope, $interval) {
+  $scope.autor = "Luis Miguel Bravo";
+  $scope.fecha_llegada_a_chile = new Date("10/19/2016");
+  $scope.fecha_mudanza_nuevo_departamento = new Date("5/1/2017");
+  $scope.fecha_maraton_de_programacion = new Date("11/26/2016");
+  $scope.fecha_de_inicio_2brains = new Date("11/2/2016");
+  $scope.fecha_de_navidad = new Date("12/24/2016");
+  $scope.fecha_de_new_year = new Date("12/31/2016");
   var tick = function() {
     $scope.clock = Date.now();
   }
