@@ -1,1 +1,1 @@
-donwlad and open index.html
+donwload and open index.html
