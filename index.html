@@ -52,10 +52,10 @@
             </tr>
             <tr ng-repeat="fecha in getFechas() | orderBy:'dia':false | filter:query" class="{{ EsPasado(fecha.dia) }}">
               <td>
-                {{ DiferenciaEnDias(fecha.dia) }}
+                {{ DiferenciaEnDias(fecha.dia) | number:0 }}
               </td>
               <td>
-                {{ DiferenciaEnSegundos(fecha.dia) }}
+                {{ DiferenciaEnSegundos(fecha.dia) | number:0 }}
               </td>
               <td>
                 {{ fecha.descripcion }}
@@ -97,6 +97,10 @@ module.controller('TimeCtrl', function($scope, $interval) {
   {
     descripcion : 'Año nuevo',
     dia : new Date("12/31/2016")
+  },
+  {
+    descripcion : 'Envio de correo solicitando visa de trabajo',
+    dia : new Date("10/26/2016")
   }];
 
   $scope.getFechas = function() {
@@ -119,7 +123,8 @@ module.controller('TimeCtrl', function($scope, $interval) {
     var _hoyDia = new Date(Date.now());
     var dif = midia.getTime() - _hoyDia.getTime();
     var Seconds_from_T1_to_T2 = dif / 1000;
-    return Math.round(Seconds_from_T1_to_T2);
+    //return Math.round(Seconds_from_T1_to_T2);
+    return Seconds_from_T1_to_T2;
   };
 
   $scope.EsPasado = function(midia){
