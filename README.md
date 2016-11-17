@@ -1,2 +1,1 @@
-donwlad
-execute
+donwlad and open index.html
