@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <head>
   <title>Reloj</title>
-  <link rel="icon" type="image/png" href="Image/favicon.png">
+  <link rel="icon" type="image/png" href="Image/faviconv2.png">
   <script src="angular.min.js"></script>
   <style>
       @font-face 
@@ -75,7 +75,7 @@ module.controller('TimeCtrl', function($scope, $interval) {
   $scope.autor = "Luis Miguel Bravo";
   var fechas = [
   {
-    descripcion : 'Llegada a Santiago de Chile',
+    descripcion : 'Llegada de Luis Miguel Bravo a Santiago de Chile',
     dia : new Date("10/19/2016")
   },
   {
@@ -101,7 +101,16 @@ module.controller('TimeCtrl', function($scope, $interval) {
   {
     descripcion : 'Envio de correo solicitando visa de trabajo',
     dia : new Date("10/26/2016")
-  }];
+  },
+  {
+    descripcion : 'Llegada de Geiby a Chile',
+    dia : new Date("10/4/2016")
+  },
+  {
+    descripcion : 'Llegada de Jeniffer Brigithe Ramos Herrera a Santiago de Chile',
+    dia : new Date("11/17/2016")
+  }
+  ];
 
   $scope.getFechas = function() {
     return fechas;
