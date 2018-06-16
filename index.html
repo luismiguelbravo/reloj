@@ -69,7 +69,7 @@
 var module = angular.module('myApp', []);
 module.controller('TimeCtrl', function($scope, $interval) {
   $scope.autor = "Luis Miguel Bravo";
-  var fechas = [
+  var fechas = [ // mes / dia / año
   {
     descripcion : 'Llegada de Luis Miguel Bravo a Santiago de Chile',
     dia : new Date("10/19/2016")
@@ -100,11 +100,11 @@ module.controller('TimeCtrl', function($scope, $interval) {
   },
   {
     descripcion : 'Ultima vez que tome alcohol',
-    dia : new Date("12/20/2017")
+    dia : new Date("06/16/2018")
   },
   {
     descripcion : 'Ultima vez que Fume',
-    dia : new Date("11/18/2016")
+    dia : new Date("06/16/2018")
   },
   {
     descripcion : 'Notificacion de visa por parte de la oficina de Extranjeria de Chile',
