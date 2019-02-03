@@ -10,7 +10,8 @@
       .fuente_reloj
       {
         font-family: 'Roboto', sans-serif;
-        font-size: 72px;
+        font-size: 45vw;
+        text-align: center;
       }
       .presente
       {
@@ -21,6 +22,9 @@
       {
         background-color: #CCC !important;
       }
+      body {
+        background-color: #1A0B3B;
+      }
   </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -29,38 +33,13 @@
   <!--script src="dias.js"></script-->
     <div ng-app="myApp">
       <div ng-controller='TimeCtrl'>
-        <div class="fuente_reloj presente">{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
-          Búscar: <input ng-model="query" />
-          <table class="table table-striped table-hover">
-            <tr>
-              <th>
-                ΔDIA(S)
-              </th>
-              <th>
-                ΔSEGUNDO(S)
-              </th>
-              <th>
-                DESCRIPCIÓN
-              </th>
-              <th>
-                FECHA
-              </th>
-            </tr>
-            <tr ng-repeat="fecha in getFechas() | orderBy:'dia':false | filter:query" class="{{ EsPasado(fecha.dia) }}">
-              <td>
-                {{ DiferenciaEnDias(fecha.dia) | number:0 }}
-              </td>
-              <td>
-                {{ DiferenciaEnSegundos(fecha.dia) | number:0 }}
-              </td>
-              <td>
-                {{ fecha.descripcion }}
-              </td>
-              <td>
-                {{fecha.dia  | date:'yyyy-MM-dd' }}
-              </td>
-            </tr>
-          </table>
+        <!-- div class="fuente_reloj presente">{{ clock | date:'dd/MM/yyyy-MM HH:mm:ss Z'}}</div-->
+          <!-- Búscar: <input ng-model="query" /> -->
+
+            <div ng-repeat="fecha in getFechas() | orderBy:'dia':false | filter:query" class="{{ EsPasado(fecha.dia) }}">
+              <div class="fuente_reloj presente">{{ DiferenciaEnDias(fecha.dia) | number:0 }}</div>
+            </div>
+          </div>
       </div>
     </div>
 </div>
@@ -70,7 +49,7 @@ var module = angular.module('myApp', []);
 module.controller('TimeCtrl', function($scope, $interval) {
   $scope.autor = "Luis Miguel Bravo";
   var fechas = [ // mes / dia / año
-  {
+  /*{
     descripcion : 'Llegada de Luis Miguel Bravo a Santiago de Chile',
     dia : new Date("10/19/2016")
   },
@@ -101,19 +80,19 @@ module.controller('TimeCtrl', function($scope, $interval) {
   {
     descripcion : 'Notificacion de visa por parte de la oficina de Extranjeria de Chile',
     dia : new Date("12/07/2016")
-  },
+  },*/
   {
-    descripcion : 'Ultima Firma de Camila Daniela',
-    dia : new Date("06/29/2020")
+    descripcion : 'Ultima Firma 30 de Junio del 2020',
+    dia : new Date("06/30/2020")
   },
-  {
+  /*{
     descripcion : 'Visita a http://www.johnnyrockets.cl/',
     dia : new Date("07/07/2018")
   },
   {
     descripcion : 'año 3000',
     dia : new Date("01/01/3000")
-  }
+  }*/
   ];
 
   $scope.getFechas = function() {
@@ -149,7 +128,7 @@ module.controller('TimeCtrl', function($scope, $interval) {
     }
     return "";
   };
-  tick();
+  //tick();
   $interval(tick, 1000);
 
 
