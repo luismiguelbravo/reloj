@@ -5,6 +5,8 @@
   <title>Reloj</title>
   <link rel="icon" type="image/png" href="Image/faviconv2.png">
   <script src="angular.min.js"></script>
+  <script src="angular-sanitize.min.js"></script>
+
   <style>
       @font-face 
       {
@@ -16,15 +18,24 @@
         font-family: roboto;
         font-size: 72px;
       }
-      .presente
-      {
-        background-color: #1A0B3B;
-        color: #979E3D;
-      }
-      .pasado
-      {
-        background-color: #CCC !important;
-      }
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+          width: 100%;
+          border: 1px solid #ddd;
+        }
+
+        th, td {
+          text-align: left;
+          padding: 8px;
+          border: 1px solid #d0c1c1;
+          vertical-align: top;
+        }
+
+        td:hover {
+            background-color: #dfdfff;
+        }
+
   </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -33,36 +44,24 @@
   <!--script src="dias.js"></script-->
     <div ng-app="myApp">
       <div ng-controller='TimeCtrl'>
-        <div class="fuente_reloj presente">{{ clock | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
+        <div class="fuente_reloj presente">Dieta para subir de peso</div>
           Búscar: <input ng-model="query" />
           <table class="table table-striped table-hover">
             <tr>
-              <th>
-                ΔDIA(S)  
-              </th>
-              <th>
-                ΔSEGUNDO(S)  
-              </th>
-              <th>
-                DESCRIPCIÓN
-              </th>
-              <th>
-                FECHA
-              </th>
+              <th> Opción </th>
+              <th> Desayuno  </th>
+              <th> Colacion  </th>
+              <th> Almuerzo  </th>
+              <th> Once  </th>
+              <th> Cena  </th>
             </tr>
-            <tr ng-repeat="fecha in getFechas() | orderBy:'dia':false | filter:query" class="{{ EsPasado(fecha.dia) }}">
-              <td>
-                {{ DiferenciaEnDias(fecha.dia) | number:0 }}
-              </td>
-              <td>
-                {{ DiferenciaEnSegundos(fecha.dia) | number:0 }}
-              </td>
-              <td>
-                {{ fecha.descripcion }}
-              </td>
-              <td>
-                {{fecha.dia  | date:'yyyy-MM-dd' }}
-              </td>
+            <tr ng-repeat="fecha in getFechas() | orderBy:'opcion':false | filter:query">
+              <td>{{ fecha.opcion }}</td>
+              <td ng-bind-html="fecha.desayuno"></td>
+              <td ng-bind-html="fecha.colacion"></td>
+              <td ng-bind-html="fecha.almuerzo"></td>
+              <td ng-bind-html="fecha.once"></td>
+              <td ng-bind-html="fecha.cena"></td>
             </tr>
           </table>
       </div>
@@ -70,54 +69,60 @@
 </div>
 
 <script>
-var module = angular.module('myApp', []);
+var module = angular.module('myApp', ['ngSanitize']);
 module.controller('TimeCtrl', function($scope, $interval) {
   $scope.autor = "Luis Miguel Bravo";
   var fechas = [
-  {
-    descripcion : 'Llegada de Luis Miguel Bravo a Santiago de Chile',
-    dia : new Date("10/19/2016")
-  },
-  {
-    descripcion : 'Mudanza a nuevo departamento',
-    dia : new Date("5/1/2017")
-  },
-  {
-    descripcion : 'Maraton de programación',
-    dia : new Date("11/26/2016")
-  },
-  {
-    descripcion : 'Inicio 2BRAINS',
-    dia : new Date("11/2/2016")
-  },
-  {
-    descripcion : 'Navidad',
-    dia : new Date("12/24/2016")
-  },
-  {
-    descripcion : 'Año nuevo',
-    dia : new Date("12/31/2016")
-  },
-  {
-    descripcion : 'Envio de correo solicitando visa de trabajo',
-    dia : new Date("10/26/2016")
-  },
-  {
-    descripcion : 'Llegada de Geiby a Chile',
-    dia : new Date("10/4/2016")
-  },
-  {
-    descripcion : 'Llegada de Jeniffer Brigithe Ramos Herrera a Santiago de Chile',
-    dia : new Date("11/17/2016")
-  },
-  {
-    descripcion : 'Ultima vez que tome alcohol, vino en chile, lira 499, piso 3, apt 313',
-    dia : new Date("11/18/2016")
-  },
-  {
-    descripcion : 'Ultima vez que Fume, Santa Lucia 212 2BRAINS',
-    dia : new Date("11/18/2016")
-  }
+    {
+      opcion: 1,
+      desayuno: "<ul> <li> 1 taza de leche </li><li> marraqueta (sin miga) con jamón de pavo o pollo y lechuga </li><li> 1 fruta </li></ul>",
+      colacion: " <ul> <li> 1 taza de frutilla con merenge endulzado con estevia </li></ul>",
+      almuerzo: " <ul> <li> Sopa de verduras con carnes<br/>(sin fideos ni arroz) </li><li> pollo a la plancha con ensalada de lechuga y pepino (1 taza de lechuga + 1 taza de pepino ) </li><li> 2 papas medianas </li></ul>",
+      once: " <ul> <li> 1 yogurt sin lactosa con cerela integral (Vivo Check, Fitness o Multi cheerios) </li><li> 1 fruta </li></ul>",
+      cena: " <ul> <li> Atún en agua </li><li> Ensaladas: ½ taza de betarraga + 1 taza de acelga </li><li> 1 taza de arroz </li></ul>"
+    },
+    {
+      opcion: 2,
+      desayuno: " <ul> <li> 1 taza de leche </li><li> ½ taza de cereales integral (Vivo Check, Fitness o Multi cherrios) </li><li> 1 vaso de jugo de naranja<br/> <b>Preparación</b> 1 Naranaja + Agua + stevia </li></ul>",
+      
+      colacion: " <ul> <li> 1 yogurt y/o manzana </li></ul>",
+      almuerzo: " <ul> <li> Ensalada de lechuga con zanahoria <br/> (1 taza de lechuga y ½ taza de zanahoria) </li><li> Pollo al jugo con tortilla de Espinca </li><li> 1 taza de arroz </li></ul>",
+      once: " <ul> <li> 1 taza de té verde ó cafe descafeinado </li><li> 2 pan de molde integral con jamon y lechuga </li></ul>",
+
+      cena: " <ul> <li> Pollo a la planca con Ensalada <br/> (1 taza de lechuga + ½ palta + ½ palmito) </li><li> 1 taza de fideos </li></ul>"
+    },
+    {
+      opcion: 3,
+      desayuno: " <ul> <li> Taza de té o café descafeinado </li><li> 4 rebanadas de pan molde integral con quesillo y tomate </li><li> 1 Fruta </li></ul>",
+      colacion: "<ul> <li> 1 Jalea diet </li><li> 1 Manzana </li></ul>",
+      almuerzo: "<ul> <li> Sopa crema de esparrago </li><li> Carne mechada con Ensalda surtida <br/> (1 taza de apio + ½ taza de betarraga + 1 taza de lechuga) </li><li> 1 taza de fideos </li></ul>",
+      once: "<ul> <li> 1 yogurt </li><li> 2 cucharadas de avena o granola </li><li> 1 fruta </li></ul>",
+      cena: "<ul> <li> tomate relleno con atun </li><li> porotos verdes + lechuga </li><li> 2 papas </li></ul>"
+    },
+    {
+      opcion: 4,
+      desayuno: "<ul> <li> 1 Yogurt sin lactosa </li><li> 2 y ½ cucharadas de granola o avena </li><li> 1 Fruta </li></ul>",
+      colacion: " <ul> <li> 1 yogurt descremado </li></ul>",
+      almuerzo: " <ul> <li> Sopa crema de espinaca </li><li> Pescado (al jugo o al horno) con ensalada a la hilena y lechuga </li><li> 1 taza de arroz </li></ul>",
+      once: "<ul> <li> 1 vaso de jugo natural <br/> (1 fruta + Agua + Stevia) </li><li> ½ pan marraqueta con tomate y quesillo </li></ul>",
+      cena: "<ul> <li> Hamburguesas caseras </li><li> Ensalada: 1 taza de pepino ½ taza de tomate y taza de apio </li></ul>"
+    },
+    {
+      opcion: 5,
+      desayuno: "<ul> <li> 1 taza de leche </li><li> 1 pan pita integral con huevo (no frito) </li><li> 1 vaso de jugo de pomelo<br/> (<b>Preparación</b> ½ pomelo + agua + stevia) </li><li> 1 jugo de fruta </li></ul>",
+      colacion: "<ul> <li> 1 Fruta </li></ul>",
+      almuerzo: "<ul> <li> Sopa crema de espinaca </li><li> Pescado (al jugo o al horno) con ensalada a la chilena y lechuga </li><li> 1 taza de arroz </li></ul>",
+      once: "<ul> <li> 1 vaso de jugo natural <br/> (1 fruta + agua + stevia) ½ pan marraqueta con tomate y quesillo </li></ul>",
+      cena: "<ul> <li> Hamburguesas caseras </li><li> 1 taza de pepino ½ taza de tomate y 1 taza de apio </li><li> 1 taza de fideos </li></ul>"
+    },
+    {
+      opcion: 6,
+      desayuno: "<ul> <li> 1 taza de leche </li><li> Galletas de salvado de trigo con atún </li><li> 1 Fruta </li></ul>",
+      colacion: "<ul> <li> 1 Jalea diet </li></ul>",
+      almuerzo: "<ul> <li> Sopa de verduras </li><li> Croquetas de atún con verduras cocidas (Zanahoria, zapallo italiano, pimenton) </li></ul>",
+      once: "<ul> <li> 1 taza de leche descremada </li><li> ½ taza de cereal integral </li><li> 1 Fruta </li></ul>",
+      cena: "<ul> <li> Sopa de verduras + clara de huevos </li><li> Carne al jugo con tortilla de acelga </li></ul>"
+    }
   ];
 
   $scope.getFechas = function() {
@@ -153,8 +158,8 @@ module.controller('TimeCtrl', function($scope, $interval) {
     }
     return "";
   };
-  tick();
-  $interval(tick, 1000);
+  //tick();
+  //$interval(tick, 1000);
 
 
 });
