@@ -36,6 +36,10 @@
             background-color: #dfdfff;
         }
 
+        .highlightedText {
+            background: yellow;
+        }
+
   </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -57,7 +61,7 @@
             </tr>
             <tr ng-repeat="fecha in getFechas() | orderBy:'opcion':false | filter:query">
               <td>{{ fecha.opcion }}</td>
-              <td ng-bind-html="fecha.desayuno"></td>
+              <td ng-bind-html="highlight(fecha.desayuno, query)"></td>
               <td ng-bind-html="fecha.colacion"></td>
               <td ng-bind-html="fecha.almuerzo"></td>
               <td ng-bind-html="fecha.once"></td>
@@ -70,7 +74,7 @@
 
 <script>
 var module = angular.module('myApp', ['ngSanitize']);
-module.controller('TimeCtrl', function($scope, $interval) {
+module.controller('TimeCtrl', ['$scope', '$sce', function($scope, $sce) {
   $scope.autor = "Luis Miguel Bravo";
   var fechas = [
     {
@@ -129,6 +133,13 @@ module.controller('TimeCtrl', function($scope, $interval) {
     return fechas;
   };
 
+  $scope.highlight = function(text, search) {
+    if (!search) {
+        return $sce.trustAsHtml(text);
+    }
+    return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+};
+
   var tick = function() {
     $scope.clock = Date.now();
   };
@@ -162,7 +173,7 @@ module.controller('TimeCtrl', function($scope, $interval) {
   //$interval(tick, 1000);
 
 
-});
+}]);
 </script>
 
 </body>
